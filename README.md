@@ -16,6 +16,7 @@ Ententer os conceitos de escalabilidade em um projeto FastAPI, estrutura e divis
 
 ### FONTES DE TEXTO:
 > https://fastapi.tiangolo.com/
+
 > https://fastapidozero.dunossauro.com/estavel/
 
 ## Engenharia de Prompts: 
