@@ -61,9 +61,10 @@ Qual a finalidade do Pydantic e como aplica-lo?
 ### Resumo:
 Os tópicos discutidos até agora sobre o FastAPI e o desenvolvimento de backend escalável resumem-se em cinco eixos principais:
 
-Vantagens do FastAPI em relação a Django e Flask: Destacamos que o FastAPI oferece um desempenho excepcionalmente superior, processando até quase três vezes mais requisições por segundo que o Django em testes de operações CRUD, graças à sua arquitetura moderna e suporte nativo a operações assíncronas. 
+Vantagens do FastAPI em relação a Django e Flask: 
+- Destacamos que o FastAPI oferece um desempenho excepcionalmente superior, processando até quase três vezes mais requisições por segundo que o Django em testes de operações CRUD, graças à sua arquitetura moderna e suporte nativo a operações assíncronas. 
 
-Ele também brilha pela validação de dados embutida (via Pydantic) e pela geração automática de documentação interativa baseada nos padrões OpenAPI.
+- Ele também brilha pela validação de dados embutida (via Pydantic) e pela geração automática de documentação interativa baseada nos padrões OpenAPI.
 Anatomia e Estrutura de Pastas Escalável: Exploramos a importância do baixo acoplamento para o crescimento do sistema. 
 
 Apresentamos duas formas de organização: 
