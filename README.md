@@ -28,7 +28,7 @@ Quais são as principais vantagens do FastAPI em relação ao Django e Flask?
 PROMPT 02:
 ## Métodos Sync e Async
 Mostre:
-- qual ´é diferença do Sycn com o Async na implementação de métodos;
+- qual é diferença do Sycn com o Async na implementação de métodos;
 - Quando e quais casos deve ser aplicado;
 - Qual diferença de performace;
 - Como deve ser implementado em um projeto de Backend;
