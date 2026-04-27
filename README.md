@@ -3,8 +3,8 @@ Miniguia estudos do framawork Fastapi com uso do notebooklm para aprender os con
 Ententer os conceitos de escalabilidade em um projeto FastAPI, estrutura e divisão de pastas e como aplicar a seguraça em um projeto.
 
 
-## Curadoria de Fontes:
-### FONTES DE VÍDEO:
+### Curadoria de Fontes:
+#### FONTES DE VÍDEO:
 > https://www.youtube.com/watch?v=SORiTsvnU28
 > https://www.youtube.com/watch?v=-eIWgi35Q8s&t=137s
 > https://www.youtube.com/watch?v=Af6Zr0tNNdE
@@ -14,12 +14,12 @@ Ententer os conceitos de escalabilidade em um projeto FastAPI, estrutura e divis
 > https://www.youtube.com/watch?v=92iCfXAK0Gc&list=PLK8U0kF0E_D6l19LhOGWhVZ3sQ6ujJKq_&index=11
 > https://www.youtube.com/watch?v=YpvcqxYiyNE&list=PLK8U0kF0E_D6l19LhOGWhVZ3sQ6ujJKq_&index=22
 
-### FONTES DE TEXTO:
+#### FONTES DE TEXTO:
 > https://fastapi.tiangolo.com/
 
 > https://fastapidozero.dunossauro.com/estavel/
 
-## Engenharia de Prompts: 
+### Engenharia de Prompts: 
 
 PROMPT 01:
 Converse sobre o que essas fontes dizem de Estrutura de Pastas, no contexto mais amplo de Anatomia de um Projeto Escalável em FastAPI.
@@ -52,7 +52,11 @@ Como funciona a injeção de dependência no FastAPI?
 PROMPT 08:
 Como funcionam as Background Tasks para envio de e-mails?
 
-## Miniguia de Estudo (Entrega Final): Apresente o resultado final consolidado, que deve conter:
+PROMPT 09:
+Como funcionam as Background Tasks para envio de e-mails?
+
+PROMPT 10:
+Qual a finalidade do Pydantic e como aplica-lo?
 
 ### Resumo:
 Os tópicos discutidos até agora sobre o FastAPI e o desenvolvimento de backend escalável resumem-se em cinco eixos principais:
@@ -63,14 +67,21 @@ Ele também brilha pela validação de dados embutida (via Pydantic) e pela gera
 Anatomia e Estrutura de Pastas Escalável: Exploramos a importância do baixo acoplamento para o crescimento do sistema. 
 
 Apresentamos duas formas de organização: 
-Arquitetura Limpa/Domínios (que separa pacotes por regras de negócio, como users/ e auth/ com seus próprios controladores, serviços e modelos) e a Separação por Camadas Técnicas (que divide o projeto em pastas como api/, services/, models/ e database/). Em ambas, destacou-se a separação estrita da pasta de testes. 
+- Arquitetura Limpa/Domínios (que separa pacotes por regras de negócio, como users/ e auth/ com seus próprios controladores, serviços e modelos) e a Separação por Camadas Técnicas (que divide o projeto em pastas como api/, services/, models/ e database/). Em ambas, destacou-se a separação estrita da pasta de testes. 
 
 Paradigma Síncrono vs. Assíncrono: 
-Usando a analogia do Bob Esponja preparando hambúrgueres, detalhamos como métodos assíncronos (async/await) otimizam agressivamente o tempo ocioso do servidor durante operações de rede e disco (I/O Bound), ao contrário do modelo síncrono que bloqueia a execução. Também abordamos como o uso de drivers de banco de dados nativamente assíncronos (como o asyncpg) extrai o máximo de performance nessa arquitetura.
+- Usando a analogia do Bob Esponja preparando hambúrgueres, detalhamos como métodos assíncronos (async/await) otimizam agressivamente o tempo ocioso do servidor durante operações de rede e disco (I/O Bound), ao contrário do modelo síncrono que bloqueia a execução. Também abordamos como o uso de drivers de banco de dados nativamente assíncronos (como o asyncpg) extrai o máximo de performance nessa arquitetura.
 
 ### Principais conceitos aprendidos;
 - Arquitetura Limpa (Clean Architecture): Padrão de design estrutural que organiza o código para facilitar a manutenção e escalabilidade.
 - Controllers/Rotas HTTP (api/): Camada fina responsável apenas por receber e devolver requisições
-- 
-
-Um conjunto de prompts reutilizáveis que possam apoiar futuras revisões sobre o tema.
+- Assíncrono (Async): O programa otimiza ativamente os tempos de espera
+- Síncrono (Sync): O código viaja em linha reta
+- Event Loop (Laço de Eventos): Orquestra e distribui as tarefas assíncronas
+- Injeção de Dependências (Dependency Injection - DI): Um padrão focado na Inversão de Controle
+- Pydantic: A biblioteca central do FastAPI responsável pela validação automática de dados e serialização
+- ORMs (SQLAlchemy e SQLModel): Bibliotecas de Mapeamento Objeto-Relacional
+- Alembic: Ferramenta do ecossistema SQLAlchemy utilizada para gerenciar as migrações do projeto
+- Uvicorn: Servidor web assíncrono ASGI encarregado de rodar a aplicação
+- TestClient (pytest e httpx) Mecanismo de qualidade e testes de software
+- Tasks (e TaskGroup): Ferramentas usadas para agendar e rodar múltiplas corrotinas concorrentemente o mais rápido possível 
