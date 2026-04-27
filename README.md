@@ -1,4 +1,4 @@
-# miniguia-estudos-fastapi
+# 📗  miniguia-estudos-fastapi
 Miniguia estudos do framawork Fastapi com uso do notebooklm para aprender os conseitos basicos ao avançado com o objetivo de implementar um projeto em python em FastApi.
 Ententer os conceitos de escalabilidade em um projeto FastAPI, estrutura e divisão de pastas e como aplicar a seguraça em um projeto.
 
@@ -85,4 +85,266 @@ Paradigma Síncrono vs. Assíncrono:
 - Alembic: Ferramenta do ecossistema SQLAlchemy utilizada para gerenciar as migrações do projeto
 - Uvicorn: Servidor web assíncrono ASGI encarregado de rodar a aplicação
 - TestClient (pytest e httpx) Mecanismo de qualidade e testes de software
-- Tasks (e TaskGroup): Ferramentas usadas para agendar e rodar múltiplas corrotinas concorrentemente o mais rápido possível 
+- Tasks (e TaskGroup): Ferramentas usadas para agendar e rodar múltiplas corrotinas concorrentemente o mais rápido possível
+
+## 📦 Dependencies de um projeto backend
+
+### FastAPI
+
+Dependencies for fastapi:
+
+- Python
+- uvicorn (Servidor Local para rodar projeto)
+- fastapi (Requisições HTTP - Routs)
+
+---
+
+### Database (PostgreSQL)
+
+Dependencies for database postgresql:
+
+- SQLAlchemy (ORM para trabalhar com banco de dados relacionais)
+- sqlmodel
+- asyncpg
+- psycopg2 (feramenta para conectar com Postgres)
+
+---
+
+### Schema / Data Validation
+
+Dependencies for schema data wrapper:
+
+- pydantic (validação de entrada → converter JSON → objetos Python)
+- alembic (migrations de tabelas do banco de dados para criar e modificar)
+
+---
+
+### Security
+
+- passlib[bcrypt] (para savar criptografado a senha do usuario no banco de dados)
+- python-jose[cryptography] Gerar Token
+
+## 📦Aplicação e Uso
+
+Esta seção descreve **cada dependência do projeto**, sua finalidade e **como ela é usada dentro de uma arquitetura backend com FastAPI**.
+
+---
+
+## Framework
+
+### 🚀 fastapi
+
+Framework moderno para criação de **APIs REST em Python**.
+
+Principais usos:
+
+- criação de endpoints HTTP
+- validação automática de dados
+- integração com Pydantic
+- geração automática de documentação (Swagger / OpenAPI)
+
+Exemplo:
+
+```python
+from fastapi import FastAPI
+
+app = FastAPI()
+
+@app.get("/users")
+def list_users():
+    return {"users": []}
+```
+
+### 🌍 uvicorn
+
+#### Servidor ASGI responsável por executar a aplicação FastAPI.
+
+Função:
+
+- rodar a aplicação
+- lidar com requisições HTTP
+- permitir alta performance assíncrona
+
+Exemplo de execução:
+```Bach
+uvicorn app.main:app --reload
+```
+
+## 🗄️ Banco de Dados
+
+### SQLAlchemy
+
+ORM (Object Relational Mapper) usado para mapear objetos Python para tabelas do banco.
+
+Funções:
+
+- criar modelos de dados
+- executar consultas
+- gerenciar sessões do banco
+
+Exemplo:
+```python
+class User(Base):
+    __tablename__ = "users"
+
+    id = Column(UUID, primary_key=True)
+    email = Column(String)
+```
+
+###  sqlmodel
+
+Biblioteca que combina:
+
+- SQLAlchemy
+- Pydantic
+
+Permite definir modelos que funcionam como ORM e schema ao mesmo tempo.
+
+Exemplo:
+```python
+from sqlmodel import SQLModel, Field
+
+class User(SQLModel, table=True):
+    id: int | None = Field(default=None, primary_key=True)
+    email: str
+```
+
+### asyncpg
+
+Driver assíncrono de conexão com PostgreSQL.
+
+Benefícios:
+
+- maior performance
+- suporte a operações async
+- ideal para aplicações FastAPI
+
+Exemplo de uso:
+```python
+postgresql+asyncpg://user:password@localhost/db
+```
+
+###  psycopg2
+
+Driver tradicional síncrono para PostgreSQL.
+
+Usado quando:
+
+- não se utiliza async
+- integração com ferramentas como Alembic
+
+### 🔎 Validação de Dados
+#### pydantic
+
+Biblioteca para validação e serialização de dados.
+
+Usada em:
+
+- schemas de entrada da API
+- validação automática
+- conversão JSON → objetos Python
+
+Exemplo:
+```python
+from pydantic import BaseModel
+
+class UserCreate(BaseModel):
+    email: str
+    password: str
+```
+
+## 🗃️ Migração de Banco
+#### alembic
+
+Ferramenta para versionamento do banco de dados.
+
+Permite:
+
+- criar migrations
+- atualizar schema do banco
+- manter histórico das alterações
+
+Exemplo de comandos:
+```python
+alembic revision --autogenerate -m "create users table"
+alembic upgrade head
+```
+
+### 🔐 Segurança
+#### passlib[bcrypt]
+
+Biblioteca usada para hash de senhas.
+
+Utiliza algoritmo bcrypt, considerado seguro para armazenamento de senhas.
+
+Exemplo:
+```python
+from passlib.context import CryptContext
+
+pwd_context = CryptContext(schemes=["bcrypt"])
+
+hashed_password = pwd_context.hash("minha_senha")
+```
+
+#### python-jose[cryptography]
+
+Biblioteca para criação e validação de tokens JWT.
+
+Usada para:
+
+- autenticação
+- autorização
+- sessões stateless
+
+Exemplo:
+```python
+from jose import jwt
+
+token = jwt.encode(
+    {"user_id": "123"},
+    "SECRET_KEY",
+    algorithm="HS256"
+)
+```
+
+### 🧠 Como essas dependências trabalham juntas
+
+Fluxo típico da aplicação:
+```
+Client Request
+      ↓
+FastAPI
+      ↓
+Pydantic (validação)
+      ↓
+Service (lógica)
+      ↓
+SQLAlchemy / SQLModel
+      ↓
+PostgreSQL (asyncpg / psycopg2)
+```
+Autenticação:
+```
+User Login
+    ↓
+Passlib → valida senha
+    ↓
+python-jose → gera JWT
+    ↓
+FastAPI retorna token
+```
+### 📊 Resumo
+
+| Dependência     | Função                  |
+| --------------- | ----------------------- |
+| fastapi         | Framework da API        |
+| uvicorn         | Servidor ASGI           |
+| SQLAlchemy      | ORM para banco          |
+| sqlmodel        | ORM + validação         |
+| asyncpg         | Driver async PostgreSQL |
+| psycopg2        | Driver sync PostgreSQL  |
+| pydantic        | Validação de dados      |
+| alembic         | Migração de banco       |
+| passlib[bcrypt] | Hash de senha           |
+| python-jose     | Autenticação JWT        |
+
